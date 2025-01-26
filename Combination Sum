@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void sol(vector<vector<int>>& ans, int sum, int i,vector<int>& t,vector<int>& arr,int tar){
+        if(sum==tar){
+            ans.push_back(t);
+            return;
+        }
+        if(sum>tar or i>=arr.size()){
+            return;
+            
+        }
+        
+        t.push_back(arr[i]);
+        sol(ans,sum+arr[i],i,t,arr,tar);
+        t.pop_back();
+        sol(ans,sum,i+1,t,arr,tar);
+    }
+    vector<vector<int> > combinationSum(vector<int> &arr, int B) {
+        vector<vector<int>> ans;
+        vector<int> t;
+        int i=0;
+        int sum=0;
+        sol(ans,sum,i,t,arr,B);
+        return ans;
+        
+    }
+};

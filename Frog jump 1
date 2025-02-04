@@ -1,0 +1,20 @@
+Class Solution{
+public:
+int sol(int n,vector<int>& arr,vector<int>& dp){
+    if(n==0){
+         return 0;
+     }
+     if(n==1){
+         return abs(arr[n]-arr[0]);
+     }
+     if(dp[n]!=-1){
+         return dp[n];
+     }
+     dp[n]=min((abs(arr[n]-arr[n-1])+sol(n-1,arr,dp)),(abs(arr[n]-arr[n-2])+sol(n-2,arr,dp)));
+     return dp[n];
+}
+int minCost(vector<int>& height) {
+        vector<int> dp(height.size(),-1);
+        return sol(height.size()-1,height,dp);
+        
+    }};

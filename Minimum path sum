@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int sol(vector<vector<int>>& arr,int i,int j,int m,int n,vector<vector<int>>& dp){
+        if(i==m){
+            return -1;
+        }
+        if(j==n){
+            return -1;
+        }
+        if(i==m-1 and j==n-1){
+           
+            return dp[i][j]=arr[i][j];
+        }
+        if(dp[i][j]!=-2){
+            return dp[i][j];
+        }
+        int r=sol(arr,i,j+1,m,n,dp);
+        int d=sol(arr,i+1,j,m,n,dp);
+        if(r==-1){
+            dp[i][j]=arr[i][j]+d;
+            return dp[i][j];
+        }
+        if(d==-1){
+             dp[i][j]=arr[i][j]+r;
+            return dp[i][j];
+        }
+        dp[i][j]=arr[i][j]+min(d,r);
+        return dp[i][j];
+    }
+    int minPathSum(vector<vector<int>>& grid) {
+        int m=grid.size();
+        int n=grid[0].size();
+        int i=0;
+        int j=0;
+        int mn=INT_MAX;
+        vector<vector<int>> dp(m,vector<int>(n,-2));
+        return sol(grid,i,j,m,n,dp);
+    }
+};

@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int sol(vector<int>& arr,int n,vector<int>& dp,int s){
+        if(n==s){
+            return arr[s];
+        }
+        if(n==s+1){
+           return max(arr[n],arr[s]);
+        }
+        if(dp[n]!=-1){
+            return dp[n];
+        }
+        return dp[n]=max(sol(arr,n-1,dp,s),arr[n]+sol(arr,n-2,dp,s));
+    }
+    int rob(vector<int>& nums) {
+        if(nums.size()==1){
+            return nums[0];
+        }
+        int n=nums.size()-1;
+        vector<int> dp(n+1,-1);
+        vector<int> ap(n+1,-1);
+        return max(sol(nums,n,dp,1),sol(nums,n-1,ap,0));
+
+    }
+};

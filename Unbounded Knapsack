@@ -1,0 +1,22 @@
+int sol(vector<int>& sum,vector<int>& wt,int i,int w,vector<vector<int>>& dp){
+    if(w==0){
+        return 0;
+    }
+    if(i<0){
+        return 0;
+    }
+    if(dp[i][w]!=-1){
+        return dp[i][w];
+    }
+    int take=0;
+    if(wt[i]<=w){
+        take=sum[i]+sol(sum,wt,i,w-wt[i],dp);
+    }
+    int no=sol(sum,wt,i-1,w,dp);
+    return dp[i][w]=max(take,no);
+}
+int unboundedKnapsack(int n, int w, vector<int> &sum, vector<int> &wt){
+    int i=n-1;
+    vector<vector<int>> dp(n,vector<int>(w+1,-1));
+    return sol(sum,wt,i,w,dp);
+}
